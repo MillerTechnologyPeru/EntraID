@@ -11,6 +11,24 @@ import FoundationNetworking
 #endif
 import HTTPTypes
 
+internal extension URLRequest {
+    
+    mutating func setFormURLEncoded(_ queryItems: [URLQueryItem]) {
+        self.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        // https://url.spec.whatwg.org/#concept-urlencoded-serializer
+        let output = queryItems.lazy
+            .map { ($0.name, $0.value ?? "") }
+            .map { ($0.formURLEncoded(), $1.formURLEncoded()) }
+            .map { "\($0)=\($1)" }
+            .joined(separator: "&")
+        let data = output.data(using: .utf8)
+        self.httpBody = data
+        if let contentLength = data?.count {
+            self.setValue(String(contentLength), forHTTPHeaderField: "Content-Length")
+        }
+    }
+}
+
 internal extension URLClient {
     
     func request<Request>(
@@ -109,6 +127,15 @@ internal extension URLClient {
         for (header, value) in headers.sorted(by: { $0.key < $1.key }) {
             urlRequest.addValue(value, forHTTPHeaderField: header)
         }
+        return try await request(urlRequest, decoder: decoder, statusCode: &statusCode)
+    }
+    
+    @discardableResult
+    func request(
+        _ urlRequest: URLRequest,
+        decoder: JSONDecoder,
+        statusCode: inout Int
+    ) async throws -> Data {
         let (data, urlResponse) = try await self.data(for: urlRequest)
         guard let httpResponse = urlResponse as? HTTPURLResponse else {
             assertionFailure("Invalid response type \(urlResponse)")
