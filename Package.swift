@@ -27,8 +27,8 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/apple/swift-http-types",
-            from: "1.4.0"
+            url: "https://github.com/PureSwift/HTTP.git",
+            branch: "master"
         )
     ],
     targets: [
@@ -36,12 +36,8 @@ let package = Package(
             name: "EntraID",
             dependencies: [
                 .product(
-                    name: "HTTPTypes",
-                    package: "swift-http-types"
-                ),
-                .product(
-                    name: "HTTPTypesFoundation",
-                    package: "swift-http-types"
+                    name: "HTTP",
+                    package: "HTTP"
                 )
             ]
         ),
