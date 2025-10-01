@@ -9,10 +9,6 @@ import Foundation
 
 internal extension String {
     
-    var isASCII: Bool {
-        self.utf8.allSatisfy { $0 & 0x80 == 0 }
-    }
-    
     func formURLEncoded() -> String {
         return self
             // Force-unwrapping because only known failure case is unpaired surrogate

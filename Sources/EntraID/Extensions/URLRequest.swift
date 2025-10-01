@@ -9,7 +9,7 @@ import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
-import HTTPTypes
+import HTTP
 
 internal extension URLRequest {
     
