@@ -98,7 +98,7 @@ public extension AuthorizationToken {
         public let objectId: String
         public let refreshHandle: String
         public let subject: String
-        public let tenantId: String
+        public let tenantId: TenantID
         public let uti: String
         public let version: String
         public let federationToken: String
