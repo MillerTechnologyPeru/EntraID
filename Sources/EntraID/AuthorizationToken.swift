@@ -15,11 +15,11 @@ public typealias EntraAuthorizationToken = OAuth.AuthorizationToken<EntraAuthori
 
 public struct EntraAuthorizationTokenHeader: Equatable, Hashable, Codable, Sendable {
     
-    public let type: String
+    public let type: JWTType
     
     public let key: String
     
-    public let algorithm: String
+    public let algorithm: JWTAlgorithm
     
     public let x509Fingerprint: String?
     
