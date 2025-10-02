@@ -73,57 +73,53 @@ public extension AuthorizationToken {
         
         public let algorithm: String
         
+        public let x509Fingerprint: String?
+        
         enum CodingKeys: String, CodingKey {
-            case type           = "typ"
-            case key            = "kid"
-            case algorithm      = "alg"
+            
+            case type               = "typ"
+            case key                = "kid"
+            case algorithm          = "alg"
+            case x509Fingerprint    = "x5t"
         }
     }
     
     struct Payload: Equatable, Hashable, Codable, Sendable {
         
-        public let sub: String
-        public let cts: String
-        public let authLevel: Int
-        public let auditTrackingId: String
-        public let subname: String
-        public let iss: String
-        public let tokenName: String
-        public let tokenType: String
-        public let authGrantId: String
-        public let aud: String
-        public let nbf: Int
-        public let grantType: String
-        public let scope: [String]
-        public let authTime: Int
-        public let realm: String
-        public let exp: Int
-        public let iat: Int
-        public let expiresIn: Int
-        public let jti: String
-        public let externalId: String
+        public let audience: String
+        public let issuer: String
+        public let issuedAt: Date
+        public let notBefore: Date
+        public let expiration: Date
+        public let aio: String
+        public let appId: String
+        public let appIdAcr: String
+        public let identityProvider: String
+        public let objectId: String
+        public let refreshHandle: String
+        public let subject: String
+        public let tenantId: String
+        public let uti: String
+        public let version: String
+        public let federationToken: String
         
         enum CodingKeys: String, CodingKey {
-            case sub
-            case cts
-            case authLevel = "auth_level"
-            case auditTrackingId = "auditTrackingId"
-            case subname
-            case iss
-            case tokenName = "tokenName"
-            case tokenType = "token_type"
-            case authGrantId = "authGrantId"
-            case aud
-            case nbf
-            case grantType = "grant_type"
-            case scope
-            case authTime = "auth_time"
-            case realm
-            case exp
-            case iat
-            case expiresIn = "expires_in"
-            case jti
-            case externalId = "external_id"
+            case audience = "aud"
+            case issuer = "iss"
+            case issuedAt = "iat"
+            case notBefore = "nbf"
+            case expiration = "exp"
+            case aio
+            case appId = "appid"
+            case appIdAcr = "appidacr"
+            case identityProvider = "idp"
+            case objectId = "oid"
+            case refreshHandle = "rh"
+            case subject = "sub"
+            case tenantId = "tid"
+            case uti
+            case version = "ver"
+            case federationToken = "xms_ftd"
         }
     }
 }
