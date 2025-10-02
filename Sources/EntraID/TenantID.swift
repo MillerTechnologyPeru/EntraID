@@ -24,6 +24,13 @@ public extension UUID {
     }
 }
 
+public extension URL {
+    
+    init(oauth tenantID: TenantID, server: EntraServer = .production) {
+        self = EntraURL.token(tenantID).url(for: server)
+    }
+}
+
 // MARK: - CustomStringConvertible
 
 extension TenantID: RawRepresentable {
