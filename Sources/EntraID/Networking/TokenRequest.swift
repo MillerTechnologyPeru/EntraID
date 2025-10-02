@@ -18,7 +18,7 @@ public extension URLClient {
         client: String,
         secret: String,
         grantType: String = "client_credentials",
-        scope: String = ".default",
+        scope: String,
         server: EntraServer = .production
     ) async throws -> EntraTokenResponse {
         let request = URLRequest(
@@ -66,14 +66,13 @@ internal extension URLRequest {
         client: String,
         secret: String,
         grantType: String = "client_credentials",
-        scope: String = ".default",
+        scope: String,
         server: EntraServer = .production
     ) {
         let url = EntraURL.token(tenant).url(for: server)
         self.init(url: url)
         self.httpMethod = "POST"
         self.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        let scope = client + "/" + scope
         let parameters: [(key: String, value: String)] = [
             ("client_id", client),
             ("client_secret", secret),
