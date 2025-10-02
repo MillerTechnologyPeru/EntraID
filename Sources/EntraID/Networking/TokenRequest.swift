@@ -46,8 +46,8 @@ public struct EntraTokenResponse: Equatable, Hashable, Codable, Sendable {
     public let scope: String?
     public let expiresIn: Int
     public let extExpiresIn: Int?
-    public let accessToken: String
-    public let refreshToken: String?
+    public let accessToken: AuthorizationToken
+    public let refreshToken: AuthorizationToken?
 
     enum CodingKeys: String, CodingKey {
         case tokenType = "token_type"
@@ -73,15 +73,11 @@ internal extension URLRequest {
         self.init(url: url)
         self.httpMethod = "POST"
         self.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        let parameters: [(key: String, value: String)] = [
-            ("client_id", client),
-            ("client_secret", secret),
-            ("grant_type", grantType),
-            ("scope", scope)
-        ]
-        let postString = parameters
-            .map { "\($0.key)=\($0.value)" }
-            .joined(separator: "&")
-        self.httpBody = Data(postString.utf8)
+        self.setFormURLEncoded([
+            .init(name: "client_id", value: client),
+            .init(name: "client_secret", value: secret),
+            .init(name: "grant_type", value: grantType),
+            .init(name: "scope", value: scope),
+        ])
     }
 }
