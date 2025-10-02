@@ -27,7 +27,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/PureSwift/HTTP.git",
+            url: "https://github.com/MillerTechnologyPeru/OAuth.git",
             branch: "master"
         )
     ],
@@ -36,8 +36,8 @@ let package = Package(
             name: "EntraID",
             dependencies: [
                 .product(
-                    name: "HTTP",
-                    package: "HTTP"
+                    name: "OAuth",
+                    package: "OAuth"
                 )
             ]
         ),
