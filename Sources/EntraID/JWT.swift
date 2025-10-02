@@ -31,6 +31,7 @@ extension JSONWebToken where Header: Decodable, Body: Decodable {
         // decode JSON parts
         do {
             let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .secondsSince1970
             self.header = try decoder.decode(Header.self, from: headerData)
             self.body = try decoder.decode(Body.self, from: bodyData)
         }
