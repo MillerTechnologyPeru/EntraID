@@ -68,19 +68,6 @@ internal extension URLRequest {
     }
 }
 
-internal extension URLRequest {
-    
-    init<T: Encodable>(
-        url: EntraURL,
-        json body: T,
-        server: EntraServer = .production
-    ) throws {
-        self.init(url: url, server: server)
-        self.httpBody = try JSONEncoder.entraID.encode(body)
-        self.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    }
-}
-
 // MARK: - Supporting Types
 
 internal extension EntraURL {
