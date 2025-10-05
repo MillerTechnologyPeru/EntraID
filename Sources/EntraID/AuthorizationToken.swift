@@ -37,7 +37,7 @@ public struct EntraAuthorizationTokenHeader: JWTHeader, Equatable, Hashable, Cod
 
 public struct EntraAuthorizationTokenPayload: JWTPayload, Equatable, Hashable, Codable, Sendable {
     
-    public let id: String
+    public let id: String?
     public let audience: String
     public let issuer: String
     public let issuedAt: Date
