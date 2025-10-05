@@ -18,7 +18,7 @@ public extension URLClient {
         scope: String,
         server: EntraServer = .production
     ) async throws -> TokenResponse<EntraAuthorizationTokenHeader, EntraAuthorizationTokenPayload> {
-        let url = URL(oauth: tenant, server: .production)
+        let url = URL(oauth: tenant, server: server)
         let request = TokenRequest(
             clientId: clientId,
             clientSecret: clientSecret,
