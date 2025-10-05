@@ -41,7 +41,7 @@ public struct EntraAuthorizationTokenPayload: JWTPayload, Equatable, Hashable, C
     public let audience: String
     public let issuer: String
     public let issuedAt: Date
-    public let notBefore: Date
+    public let notBefore: Date?
     public let expiration: Date
     public let aio: String
     public let appId: String
