@@ -13,27 +13,31 @@ import OAuth
 
 public typealias EntraAuthorizationToken = OAuth.AuthorizationToken<EntraAuthorizationTokenHeader, EntraAuthorizationTokenPayload>
 
-public struct EntraAuthorizationTokenHeader: Equatable, Hashable, Codable, Sendable {
+public struct EntraAuthorizationTokenHeader: JWTHeader, Equatable, Hashable, Codable, Sendable {
     
-    public let type: JWTType
+    public let type: JWTType?
     
-    public let key: String
+    public let keyId: String?
+    
+    public let contentType: String?
     
     public let algorithm: JWTAlgorithm
     
     public let x509Fingerprint: String?
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
         
-        case type               = "typ"
-        case key                = "kid"
-        case algorithm          = "alg"
-        case x509Fingerprint    = "x5t"
+        case type                   = "typ"
+        case keyId                  = "kid"
+        case algorithm              = "alg"
+        case x509Fingerprint        = "x5t"
+        case contentType            = "cty"
     }
 }
 
-public struct EntraAuthorizationTokenPayload: Equatable, Hashable, Codable, Sendable {
+public struct EntraAuthorizationTokenPayload: JWTPayload, Equatable, Hashable, Codable, Sendable {
     
+    public let id: String
     public let audience: String
     public let issuer: String
     public let issuedAt: Date
@@ -51,7 +55,8 @@ public struct EntraAuthorizationTokenPayload: Equatable, Hashable, Codable, Send
     public let version: String
     public let federationToken: String
     
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
+        case id = "jti"
         case audience = "aud"
         case issuer = "iss"
         case issuedAt = "iat"
